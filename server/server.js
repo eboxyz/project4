@@ -6,6 +6,7 @@ var mongoose = Promise.promisifyAll(require('mongoose'));
 var passport = require('passport');
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv').config();
+var cors = require('cors')
 
 //mongo connections (local+mongolab)
 mongoose.connect('mongodb://localhost/gameStuff')
@@ -33,6 +34,6 @@ app.set('view engine', 'ejs');
 //seed user
 require('./db/seed.js').seedUsers();
 
-app.listen(process.env.PORT || 3000, function(){
-  console.log('port open on localhost:3000')
+app.listen(process.env.PORT || 8000, function(){
+  console.log('port open on localhost:8000')
 })

@@ -46,6 +46,24 @@ module.exports = function(passport){
     }
   ));
 
+  passport.use('local-login', new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
+  }, function(req, username, password, done){
+    User.findOne({
+      'local.username': username
+    }, function(err, user){
+    if(err) return done(err);
+    if(!user)
+      return done(null, false)
+    if(!user.validPass(password))
+      return done(null, false)
+    return done(null, user);
+    });
+    }
+  ));
+
   passport.use('facebook', new FacebookStrategy({
     clientID        : process.env.FACEBOOK_APP_ID,
     clientSecret    : process.env.FACEBOOK_API_SECRET,
