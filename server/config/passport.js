@@ -1,7 +1,7 @@
 var User = require('../models/user');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var LocalStrategy = require('passport-local')
+var LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config({path: '../.env'})
 
 module.exports = function(passport){
@@ -47,7 +47,7 @@ module.exports = function(passport){
   ));
 
   passport.use('facebook', new FacebookStrategy({
-    clientID        : process.env.FACEBOOK_API_KEY,
+    clientID        : process.env.FACEBOOK_APP_ID,
     clientSecret    : process.env.FACEBOOK_API_SECRET,
     // callbackURL     : 'http://fightball.herokuapp.com/auth/facebook/callback',
     callbackURL     : 'http://localhost:3000/auth/facebook/callback',
@@ -63,6 +63,7 @@ module.exports = function(passport){
           return done(null, user);
         } else {
           var newUser = new User();
+          console.log(newUser)
           newUser.fb.id           = profile.id;
           newUser.fb.access_token = access_token;
           newUser.fb.firstName    = profile.name.givenName;
