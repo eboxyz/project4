@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
+var dotenv = require('dotenv')
+var dotenv = require('dotenv').config();
 
 mongoose.connect('mongodb://localhost:27017/gameStuff')
 
