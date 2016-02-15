@@ -26,7 +26,6 @@ app.use(bodyParser.urlencoded({ extended: true}));
 var routes = require('./config/routes')
 app.use('/', routes);
 
-require('./controllers/usersController.js')(app, passport)
 require('./controllers/loginController.js')(app, passport)
 
 app.engine('ejs', require('ejs').renderFile);
