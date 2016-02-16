@@ -5,76 +5,31 @@ var userController = require('./usersController');
 var mongoose = require('mongoose');
 
 module.exports = function(app, passport){
-  //local login routing
   app.get('/', function(req,res){
-    if(req.session && req.session.username){
-      console.log(req.session)
-      User.findOne( {username: req.session.username})
-        .then(function(user){
-          res.render('index.html', {
-            curr_user: user.username,
-            users: null
-          })
-        })
-    } else{
-      User.findAsync({})
-        .then(function(users){
-          res.render('index.ejs',{
-            curr_user: null,
-            users: users
-          })
-        }).catch();
-    }
-    // req.session.save();
-  });
-  //local login through passport-local
-  app.get('/local/login', function(req,res){
-    console.log(req.session)
-    if(req.session && req.session.username){
-      User.findOne({ username: req.session.username})
-        .then(function(user){
-          res.render('index.html', {
-            curr_user: user.username,
-            users: null
-          })
-        })
-    } else{
-      User.findAsync({})
-        .then(function(users){
-          res.render('index.html',{
-            curr_user: null,
-            users: users
-          })
-        }).catch();
-    }
-    req.session.save();
+    res.render('index.ejs')
+  })
+
+  //route to access login page
+  app.get('/login', function(req,res){
+    res.render('login.ejs')
   });
 
-  app.post('/local/login', passport.authenticate('local-login',{
+  //local login authenticated through passport
+  app.post('/login', passport.authenticate('local-login',{
     successRedirect: '/',
     failureRedirect: '/local/login'
   }));
-  //local sign-in through passport-local
-  app.get('/local/signup', function(req, res){
-    if (req.session && req.session.username){
-      User.findOne({ username: req.session.username })
-        .then(function(users){
-          res.render('/users/signup', {
-            curr_user: user.username,
-            users: null
-          })
-        })
-    } else{
-      User.findAsync({})
-        .then(function(users){
-          res.render('/users/signup', {
-            curr_user: null,
-            users: users
-          })
-        }).catch()
-    }
-    req.session.save();
+
+  //route to access signup page
+  app.get('/signup', function(req,res){
+    res.render('signup.ejs')
   });
+
+  //local sign-in through passport-local
+  app.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect: '/signup'
+  }));
   //local logout through passport-local
   app.post('/local/signup', passport.authenticate('local-signup', {
     successRedirect: '/',

@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose')
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt-nodejs')
 
 
 //user schema for mongo model
@@ -15,7 +15,6 @@ var userSchema = mongoose.Schema({
   },
   local:{
     username: String,
-    name: String,
     password: String
   }
 });
@@ -28,6 +27,7 @@ userSchema.methods.generateHash = function (password){
 
 //check encrypted password
 userSchema.methods.validPass = function(password){
+  var user = this;
   return bcrypt.compareSync(password, this.local.password);
 };
 

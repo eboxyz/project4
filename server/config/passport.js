@@ -15,7 +15,6 @@ module.exports = function(passport){
 
   //local authentication for site
   passport.use('local-signup', new LocalStrategy({
-    name: 'name',
     username: 'username',
     passwordField: 'password',
     passReqToCallback: true
@@ -32,7 +31,6 @@ module.exports = function(passport){
           } else{
             console.log(req.body);
             var newUser = new User();
-            newUser.local.name = req.body.name;
             newUser.local.username = req.body.username;
             newUser.local.password = newUser.generateHash(password);
             newUser.save( function(err){
