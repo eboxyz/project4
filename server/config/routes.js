@@ -35,7 +35,7 @@ router.use(function(req, res, next){
   }
 });
 
-router.get('/me', function(req,res){
+router.get('/api/me', function(req,res){
   res.send(req.decoded);
 })
 
