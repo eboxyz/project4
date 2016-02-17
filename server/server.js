@@ -10,8 +10,8 @@ var cors = require('cors');
 var jwt = require('jsonwebtoken');
 
 //mongo connections (local+mongolab)
-mongoose.connect('mongodb://localhost/gameStuff')
-// mongoose.connect('mongodb://heroku_tg23vpt5:72qsqn1abk15rckjliop1l91v3@ds059195.mongolab.com:59195/heroku_tg23vpt5')
+// mongoose.connect('mongodb://localhost/gameStuff')
+mongoose.connect('mongodb://heroku_tg23vpt5:72qsqn1abk15rckjliop1l91v3@ds059195.mongolab.com:59195/heroku_tg23vpt5')
 
 //secret for JWT to create tokens
 var superSecret = process.env.superSecret
