@@ -1,5 +1,6 @@
 angular
-  .module('FightBall', ['ui.router', 'mainController', 'authService'])
+  .module('FightBall', ['ui.router', 'mainController', 'SocketController', 'authService', 'chatSocket', 'btford.socket-io'])
+  .value('nickName', 'anonymous')
   .config(MainRouter)
 
   .constant('ApiEndpoint', {
@@ -7,11 +8,15 @@ angular
   })
 
   function MainRouter($stateProvider, $urlRouterProvider, $locationProvider){
-    $locationProvider.html5Mode(true).hashPrefix('!')
+    // $locationProvider.html5Mode(false).hashPrefix('!')
 
     $stateProvider
-    .state('home',{
+    .state('index', {
       url: '/',
+      templateUrl: 'index.html'
+    })
+    .state('home',{
+      url: '/home',
       templateUrl: 'home.html'
     })
     .state('login', {
