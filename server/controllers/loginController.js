@@ -3,6 +3,8 @@ var express = require('express');
 var User = require('../models/user');
 var userController = require('./usersController');
 var mongoose = require('mongoose');
+var cors = require('cors');
+
 
 module.exports = function(app, passport){
   app.get('/', function(req,res){
