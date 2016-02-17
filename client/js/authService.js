@@ -1,11 +1,25 @@
 angular
   .module('authService',[])
 
+  .factory('Api', function($http, ApiEndpoint){
+    console.log('ApiEndpoint', ApiEndpoint)
+    var getApiData = function(){
+      return $http.get(ApiEndpoint.url)
+        .then(function(data){
+          console.log(data);
+          return data
+        })
+    };
+    return{
+      getApiData: getApiData
+    }
+  })
+
   //auth factory to login+get info
   //inject $http for communication with API
   //inject $q to return promise objects
   // injecdt AuthToken to manage tokens
-  .factory('Auth', function($http, $q, AuthToken){
+  .factory('Auth', function($http, $q, AuthToken, ApiEndpoint){
 
     //create auth factory object
     var authFactory = {};
@@ -13,7 +27,7 @@ angular
     //log a user in
     authFactory.login = function(username, password){
       //return the promise object and its data
-      return $http.post('/api/authenticate', {
+      return $http.post(ApiEndpoint.url, {
         username: username,
         password: password
       })
