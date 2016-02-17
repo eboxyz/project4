@@ -13,6 +13,10 @@ var jwt = require('jsonwebtoken');
 // mongoose.connect('mongodb://localhost/gameStuff')
 mongoose.connect('mongodb://heroku_tg23vpt5:72qsqn1abk15rckjliop1l91v3@ds059195.mongolab.com:59195/heroku_tg23vpt5')
 
+
+//configure apple to handle CORS requests
+app.use(cors());
+
 //secret for JWT to create tokens
 var superSecret = process.env.superSecret
 
@@ -29,15 +33,6 @@ app.use(bodyParser.urlencoded({ extended: true}));
 
 var routes = require('./config/routes')
 app.use('/', routes);
-
-//configure apple to handle CORS requests
-app.use(function(req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, \
-  Authorization');
-  next();
-});
 
 require('./controllers/loginController.js')(app, passport)
 
